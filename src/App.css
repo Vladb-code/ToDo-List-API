@@ -1,0 +1,120 @@
+/* Общие настройки для всей страницы */
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center; /* Центрирует по горизонтали */
+  background-color: #f4f7f6;
+  font-family: "Inter", sans-serif;
+}
+
+#root {
+  width: 100%;
+  max-width: 500px; /* Ограничиваем ширину контейнера */
+  padding: 20px;
+}
+
+.App,
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрирует дочерние элементы внутри контейнера */
+  width: 100%;
+}
+
+/* Стили заголовка */
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Стили форм (Логин / Регистрация) */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form input,
+.auth-form select,
+.auth-form button {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+/* Стили ввода задач */
+.input-section,
+.input-box {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-section input {
+  flex: 1; /* Инпут занимает все свободное место */
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Список задач */
+.tasks-list,
+.list {
+  width: 100%;
+  padding: 0;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between; /* Текст слева, кнопка справа */
+  align-items: center;
+  background: white;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden; /* Чтобы длинный текст не ломал верстку */
+}
+
+/* Стили фильтров */
+.filters,
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 25px;
+  flex-wrap: wrap; /* Если кнопок много, они перенесутся */
+}
+
+.active-f,
+.active {
+  background-color: #646cff !important;
+  color: white;
+}
+
+button {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #888;
+}

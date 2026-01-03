@@ -1,4 +1,4 @@
-# Logs
+# Logs - логи работы пакетных менеджеров
 logs
 *.log
 npm-debug.log*
@@ -7,12 +7,24 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies - папка с библиотеками
 node_modules
+
+# Production - папка со сборкой проекта
 dist
 dist-ssr
+
+# Environment Variables - ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ 
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Local files - локальные конфигурации
 *.local
 
-# Editor directories and files
+# Editor directories and files - настройки редакторов кода
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -22,3 +34,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Testing - отчеты о тестировании
+/coverage

@@ -1,15 +1,14 @@
-/* Общие настройки для всей страницы */
 body {
   margin: 0;
   display: flex;
-  justify-content: center; /* Центрирует по горизонтали */
+  justify-content: center;
   background-color: #f4f7f6;
   font-family: "Inter", sans-serif;
 }
 
 #root {
   width: 100%;
-  max-width: 500px; /* Ограничиваем ширину контейнера */
+  max-width: 500px;
   padding: 20px;
 }
 
@@ -17,17 +16,15 @@ body {
 .auth-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрирует дочерние элементы внутри контейнера */
+  align-items: center;
   width: 100%;
 }
 
-/* Стили заголовка */
 h1 {
   color: #333;
   margin-bottom: 30px;
 }
 
-/* Стили форм (Логин / Регистрация) */
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -48,7 +45,6 @@ h1 {
   font-size: 16px;
 }
 
-/* Стили ввода задач */
 .input-section,
 .input-box {
   display: flex;
@@ -58,13 +54,12 @@ h1 {
 }
 
 .input-section input {
-  flex: 1; /* Инпут занимает все свободное место */
+  flex: 1;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ddd;
 }
 
-/* Список задач */
 .tasks-list,
 .list {
   width: 100%;
@@ -73,7 +68,7 @@ h1 {
 
 .task-item {
   display: flex;
-  justify-content: space-between; /* Текст слева, кнопка справа */
+  justify-content: space-between;
   align-items: center;
   background: white;
   margin-bottom: 10px;
@@ -86,17 +81,16 @@ h1 {
   display: flex;
   align-items: center;
   gap: 10px;
-  overflow: hidden; /* Чтобы длинный текст не ломал верстку */
+  overflow: hidden;
 }
 
-/* Стили фильтров */
 .filters,
 .filter-bar {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-bottom: 25px;
-  flex-wrap: wrap; /* Если кнопок много, они перенесутся */
+  flex-wrap: wrap;
 }
 
 .active-f,

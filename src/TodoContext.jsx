@@ -7,6 +7,7 @@ import {
 } from "react";
 import { useAuth } from "./AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL;
 const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
@@ -19,7 +20,7 @@ export const TodoProvider = ({ children }) => {
     if (!token) return;
     setLoading(true);
     try {
-      const res = await fetch("https://todo-redev.herokuapp.com/api/todos", {
+      const res = await fetch(`${API_URL}/todos`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -30,7 +31,7 @@ export const TodoProvider = ({ children }) => {
   }, [token]);
 
   const addTask = async (title) => {
-    const res = await fetch(" https://todo-redev.herokuapp.com/api/todos", {
+    const res = await fetch(`${API_URL}/todos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +48,7 @@ export const TodoProvider = ({ children }) => {
   const deleteTask = useCallback(
     async (id) => {
       setTasks((prev) => prev.filter((t) => t.id !== id));
-      await fetch(`https://todo-redev.herokuapp.com/api/todos/${id}`, {
+      await fetch(`${API_URL}/todos/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -62,38 +63,48 @@ export const TodoProvider = ({ children }) => {
           t.id === id ? { ...t, isCompleted: !currentStatus } : t
         )
       );
-      await fetch(
-        `https://todo-redev.herokuapp.com/api/todos/${id}/isCompleted`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ isCompleted: !currentStatus }),
-        }
+      await fetch(`${API_URL}/todos/${id}/isCompleted`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ isCompleted: !currentStatus }),
+      });
+    },
+    [token]
+  );
+
+  const editTaskTitle = useCallback(
+    async (id, newTitle) => {
+      setTasks((prev) =>
+        prev.map((t) => (t.id === id ? { ...t, title: newTitle } : t))
       );
+      await fetch(`${API_URL}/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title: newTitle }),
+      });
     },
     [token]
   );
 
   const clearCompleted = async () => {
     const completed = tasks.filter((t) => t.isCompleted);
-    if (completed.length === 0) return;
-
     setLoading(true);
     try {
       await Promise.all(
-        completed.map((task) =>
-          fetch(`https://todo-redev.herokuapp.com/api/todos/${task.id}`, {
+        completed.map((t) =>
+          fetch(`${API_URL}/todos/${t.id}`, {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
           })
         )
       );
       setTasks((prev) => prev.filter((t) => !t.isCompleted));
-    } catch (err) {
-      console.error("Ошибка при очистке:", err);
     } finally {
       setLoading(false);
     }
@@ -106,31 +117,6 @@ export const TodoProvider = ({ children }) => {
       return true;
     });
   }, [tasks, filter]);
-  const editTaskTitle = useCallback(
-    async (id, newTitle) => {
-      setTasks((prev) =>
-        prev.map((t) => (t.id === id ? { ...t, title: newTitle } : t))
-      );
-
-      try {
-        const res = await fetch(
-          `https://todo-redev.herokuapp.com/api/todos/${id}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ title: newTitle }),
-          }
-        );
-        if (!res.ok) throw new Error();
-      } catch (err) {
-        console.error("Ошибка при изменении названия");
-      }
-    },
-    [token]
-  );
 
   return (
     <TodoContext.Provider

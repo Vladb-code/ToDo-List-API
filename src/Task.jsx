@@ -21,14 +21,12 @@ const Task = memo(({ task }) => {
           checked={task.isCompleted}
           onChange={() => toggleTask(task.id, task.isCompleted)}
         />
-
         {isEdit ? (
           <input
-            className="edit-input"
             value={editText}
+            autoFocus
             onChange={(e) => setEditText(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSave()}
-            autoFocus
           />
         ) : (
           <span
@@ -39,17 +37,13 @@ const Task = memo(({ task }) => {
           </span>
         )}
       </div>
-
       <div className="task-btns">
         <button onClick={() => (isEdit ? handleSave() : setIsEdit(true))}>
-          {isEdit ? "↩︎" : "✎"}
+          {isEdit ? "OK" : "✎"}
         </button>
-        <button className="del-btn" onClick={() => deleteTask(task.id)}>
-          ×
-        </button>
+        <button onClick={() => deleteTask(task.id)}>×</button>
       </div>
     </div>
   );
 });
-
 export default Task;
